@@ -1,7 +1,7 @@
 using Chat.Server.Adapters.Database;
 using Chat.Server.Adapters.Database.Services;
-using Chat.Server.Ports.Database.Services; 
-using NUnit.Framework; 
+using Chat.Server.Ports.Database.Services;
+using NUnit.Framework;
 
 namespace Chat.Database.Test
 {
@@ -18,7 +18,7 @@ namespace Chat.Database.Test
 
         [Test]
         [TestCase("User1", "Message", "Public")]
-        [TestCase("User2", "Message text", "Public")] 
+        [TestCase("User2", "Message text", "Public")]
         public void AddMessageTest(string userName, string message, string chatRoom)
         {
             IMessageService service = new MessageService(_context);
@@ -38,7 +38,7 @@ namespace Chat.Database.Test
             for (int i = 0; i < pageCount; i++)
             {
                 service.Add("User", "Message " + i.ToString(), "Public");
-            } 
+            }
 
             Assert.That(service.GetHistoric("Public", pageCount).Count, Is.EqualTo(pageCount));
         }

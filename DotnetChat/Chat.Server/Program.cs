@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using static System.Net.WebRequestMethods;
 
 namespace Chat.Server
 {
@@ -16,7 +17,8 @@ namespace Chat.Server
                 .UseConfiguration(new ConfigurationBuilder()
                     .AddCommandLine(args)
                     .Build())
-                .UseStartup<Startup>() 
+        .UseStartup<Startup>()
+                .UseUrls("http://localhost:6840")
                 .Build();
     }
 }

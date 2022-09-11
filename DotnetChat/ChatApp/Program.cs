@@ -2,12 +2,16 @@
 
 ChatClient? client;
 string userName = string.Empty;
-string url = "http://127.0.0.1:6841";
+string url = "http://127.0.0.1:6840";
 string newMessage = string.Empty;
 
 void MessageReceived(object sender, MessageReceivedEventArgs e)
-{ 
-    Console.WriteLine(e.Username + ": " + e.Message);
+{
+    if (e.Username != userName)
+    {
+        Console.WriteLine(e.Username + ": " + e.Message);
+        Console.WriteLine();
+    }
 }
 
 async Task SendAsync()
@@ -24,6 +28,9 @@ while (string.IsNullOrEmpty(userName))
     Console.WriteLine("Enter a name: ");
     userName = Console.ReadLine();
 }
+Console.WriteLine();
+Console.WriteLine("Let's chat...");
+Console.WriteLine();
 
 client = new ChatClient(userName, url);
 client.MessageReceived += MessageReceived;
@@ -31,10 +38,20 @@ await client.StartAsync();
 
 while (true)
 {
-    newMessage = Console.ReadLine();
-    if (!string.IsNullOrEmpty(newMessage))
+    ConsoleKeyInfo info = Console.ReadKey(true);
+
+    while (info.Key != ConsoleKey.Enter)
     {
-        Console.WriteLine(userName + ": " + newMessage);
-        await SendAsync();
+        if (string.IsNullOrEmpty(newMessage))
+        {
+            Console.Write(userName + ": ");
+        }
+        newMessage += info.KeyChar;
+        Console.Write(info.KeyChar);
+        info = Console.ReadKey(true);
     }
+    Console.WriteLine();
+    Console.WriteLine();
+    await SendAsync();
 }
+

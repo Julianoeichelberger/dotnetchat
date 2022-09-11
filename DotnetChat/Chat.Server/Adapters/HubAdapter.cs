@@ -1,10 +1,7 @@
-﻿using Chat.Server.Adapters.Database;
-using Chat.Server.Adapters.Database.Services;
-using Chat.Server.Ports;
+﻿using Chat.Server.Ports;
 using Chat.Server.Ports.Database.Services;
 using Chat.Shared;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,7 +12,7 @@ namespace Chat.Server.Adapters
     {
         private const string _chatRoom = "Public";
 
-        private static readonly Dictionary<string, string> _connectedUsers = new Dictionary<string, string>(); 
+        private static readonly Dictionary<string, string> _connectedUsers = new Dictionary<string, string>();
         private static readonly IMessageInterceptor _interceptor = new MessageInterceptor();
 
         private IMessageService _messageService;
@@ -44,9 +41,9 @@ namespace Chat.Server.Adapters
             if (!_connectedUsers.ContainsKey(currentId))
             {
                 _connectedUsers.Add(currentId, username);
-                await Clients.AllExcept(currentId).SendAsync(Messages.RECEIVE, username, $"{username} joined the chat");
+                await Clients.AllExcept(currentId).SendAsync(Messages.RECEIVE, username, "joined the chat");
 
-               var historic = _messageService.GetHistoric(_chatRoom);
+                var historic = _messageService.GetHistoric(_chatRoom);
                 foreach (var item in historic)
                 {
                     await Clients.Caller.SendAsync(Messages.RECEIVE, item.Username, item.Text);
@@ -69,7 +66,7 @@ namespace Chat.Server.Adapters
 
             Console.WriteLine($"Disconnected {e?.Message} {username}");
             _connectedUsers.Remove(id);
-            await Clients.AllExcept(Context.ConnectionId).SendAsync(Messages.RECEIVE, username, $"{username} has left the chat");
+            await Clients.AllExcept(Context.ConnectionId).SendAsync(Messages.RECEIVE, username, $"left the chat");
             await base.OnDisconnectedAsync(e);
         }
 

@@ -32,7 +32,7 @@ namespace Chat.Server.Adapters.Database.Services
             var query = _context.Message
              .Where(x => x.Chatroom == chatRoom)
              .OrderBy(x => x.Timestamp)
-             .Take(pageCount); 
+             .Take(pageCount);
 
             return query.ToList();
         }

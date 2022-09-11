@@ -73,7 +73,7 @@ namespace Chat.Server.Adapters.Commands
                 catch (Exception e)
                 {
                     return e.Message;
-                } 
+                }
 
             }
             else

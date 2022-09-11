@@ -1,5 +1,5 @@
 ﻿using Chat.Server.Adapters.Database;
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.EntityFrameworkCore;
 
 namespace Chat.Database.Test
 {
@@ -8,10 +8,10 @@ namespace Chat.Database.Test
         public static MessageContext GetMessageInstance()
         {
             var options = new DbContextOptionsBuilder<MessageContext>();
-             
+
             options.UseInMemoryDatabase("Messages");
 
-            return new MessageContext(options.Options); 
+            return new MessageContext(options.Options);
         }
     }
 }

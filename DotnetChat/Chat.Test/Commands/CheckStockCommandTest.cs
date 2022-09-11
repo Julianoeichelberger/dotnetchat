@@ -1,7 +1,7 @@
-﻿using Chat.Server.Adapters.CommandCheck; 
+﻿using Chat.Server.Adapters.CommandCheck;
 using Chat.Server.Ports;
 using Chat.Server.Ports.Commands;
-using NUnit.Framework; 
+using NUnit.Framework;
 
 namespace Chat.Test.Commands
 {
@@ -19,8 +19,8 @@ namespace Chat.Test.Commands
         [Test]
         [TestCase("/stock=aapl.us")]
         public void CheckTest(string message)
-        {   
-            Assert.That(_command.Check(ref message)); 
+        {
+            Assert.That(_command.Check(ref message));
         }
 
         [Test]
